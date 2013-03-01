@@ -5,6 +5,18 @@ var express = require('express'),
 
 var app = express();
 
+//CORS Middleware
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+};
+
+app.configure(function() {
+    app.use(allowCrossDomain);
+});
+
 mongoose.connect('mongodb://localhost/fonts');
 
 var FontSchema = new mongoose.Schema({
