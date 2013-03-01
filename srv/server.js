@@ -33,8 +33,15 @@ var Font = mongoose.model('Font', FontSchema);
 
 
 app.post('/api/font', express.bodyParser(), function(req, res) {
-    console.log(req.body);
-    res.send(req.body);
+    var newFont = new Font(req.body);
+    newFont.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Added font "' + req.body.family + '" to db');
+        }
+        res.send(newFont);
+    });
 });
 
 
