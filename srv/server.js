@@ -31,7 +31,18 @@ var FontSchema = new mongoose.Schema({
 
 var Font = mongoose.model('Font', FontSchema);
 
+//Return full list of fonts
+app.get('/api/fonts', function(req, res) {
+    Font.find(function(err, fonts) {
+        if (!err) {
+            res.send(fonts);
+        } else {
+            console.log(err);
+        }
+    });
+});
 
+//Save a single, new font (likely unneeded)
 app.post('/api/font', express.bodyParser(), function(req, res) {
     var newFont = new Font(req.body);
     newFont.save(function(err) {
