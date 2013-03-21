@@ -27,7 +27,8 @@ var FontSchema = new mongoose.Schema({
     variants: String,
     main_class: String,
     sub_class: String,
-    x_height: String,
+    x_height: Number,
+    line_height: Number,
     a_type: String
 });
 
