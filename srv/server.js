@@ -42,7 +42,14 @@ app.options('*', function(req, res) {
 
 //Return full list of fonts
 app.get('/api/fonts', function(req, res) {
-    Font.find(function(err, fonts) {
+    var query;
+    if (process.argv[2] === "--strip") {
+        query = Font.find({main_class: {$exists: false}});
+    } else {
+        query = Font.find();
+    }
+    
+    query.exec(function(err, fonts) {
         if (!err) {
             res.send(fonts);
         } else {
